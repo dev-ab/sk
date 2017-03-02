@@ -37,8 +37,8 @@ if (($handle = fopen("John Deer Data.csv", "r")) !== FALSE) {
         $date = (strtotime($date) * 1000) - (strtotime('01-01-1970 00:00:00') * 1000);
 
         if ($temp[8] == 'Rain Gauge') {
-            $aData[0][] = [$date, getAvgRain(5, $temp[0], $temp[1], $temp[2]) * 10];
-            $aData[1][] = [$date, getAvgRain(10, $temp[0], $temp[1], $temp[2]) * 10];
+            $aData[0][] = [$date, (float) getAvgRain(5, $temp[0], $temp[1], $temp[2]) * 10];
+            $aData[1][] = [$date, (float) getAvgRain(10, $temp[0], $temp[1], $temp[2]) * 10];
             $aData[2][] = [$date, $temp[9] * 10];
         } else if ($temp[8] == 'Soil Moisture') {
             $aData[3][] = [$date, (int) $temp[9]];
