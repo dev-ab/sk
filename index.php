@@ -50,6 +50,8 @@ if (($handle = fopen("John Deer Data.csv", "r")) !== FALSE) {
 $aData[4][] = [];
 //echo count($aData[0]);
 
+ini_set('serialize_percision', '5');
+
 $mdWidth = count($aData[0]) * 67;
 
 function getAvgRain($num, $year, $month, $day) {
@@ -113,9 +115,9 @@ function getAvgRain($num, $year, $month, $day) {
     <body ng-controller="Main">
         <div class="container-fluid">
             <div class="row">
-                <div class="col-md-6 col-md-offset-3" style="text-align: center;position: fixed;z-index: 9999;">
-                    <h3>Soil Moisture  / Rain & Crop Potential</h3>
-                    <ul class="list-inline">
+                <div class="col-xs-10 col-xs-offset-1" style="text-align: center;position: fixed;z-index: 9999;">
+                    <h1>Soil Moisture  / Rain & Crop Potential</h1>
+                    <ul id="legend-list" class="list-inline">
                         <li><i class="fa fa-circle" style="color:#F9E79F;"></i> 10 year rain avg</li>
                         <li><i class="fa fa-circle" style="color:#F4D03F;"></i> 5 year rain avg</li>
                         <li><i class="fa fa-circle" style="color:#EB984E;"></i> Actual Rain</li>
@@ -334,7 +336,6 @@ function getAvgRain($num, $year, $month, $day) {
                                     var title = '30px';
                                     var label = '15px';
                                     var ticks = '15px';
-
                                 } else if (size == 'sm') {
                                     var title = '45px';
                                     var label = '30px';
@@ -344,6 +345,8 @@ function getAvgRain($num, $year, $month, $day) {
                                     var label = '40px';
                                     var ticks = '40px';
                                 }
+
+                                $('#legend-list').css('font-size', label);
 
                                 var x = [0];
                                 var y = [3];
