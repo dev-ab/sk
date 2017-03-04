@@ -68,6 +68,7 @@ function getAvgRain($num, $year, $month, $day) {
     <head>
         <title>South Country Equipment</title>
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
         <style type="text/css">
             ::-webkit-scrollbar {
                 width: 14px;
@@ -103,12 +104,31 @@ function getAvgRain($num, $year, $month, $day) {
                 background: transparent;
             }
         </style>
+        <style>
+            .highcharts-legend{
+                /*display: none;*/
+            }
+        </style>
     </head>
     <body ng-controller="Main">
         <div class="container-fluid">
             <div class="row">
-                <div id="charts" class="col-xs-12" style="">
+                <div class="col-md-6 col-md-offset-3" style="text-align: center;position: fixed;z-index: 9999;">
+                    <h3>Soil Moisture  / Rain & Crop Potential</h3>
+                    <ul class="list-inline">
+                        <li><i class="fa fa-circle" style="color:#F9E79F;"></i> 10 year rain avg</li>
+                        <li><i class="fa fa-circle" style="color:#F4D03F;"></i> 5 year rain avg</li>
+                        <li><i class="fa fa-circle" style="color:#EB984E;"></i> Actual Rain</li>
+                        <li><i class="fa fa-minus" style="color:#7cb5ec;"></i> Soil Moisture</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="row">
+                <div id="resize" class="col-xs-12" style="display: none;">
+                    <h2>Resizing...</h2>
+                </div>
 
+                <div id="charts" class="col-xs-12" style="margin-top: 50px;">
                 </div>
             </div>
         </div>
@@ -128,6 +148,11 @@ function getAvgRain($num, $year, $month, $day) {
         <script src="js/main1.js"></script>
         <script>
 
+                    $(document).ready(function () {
+                        //$('#legend-rep').html($('.highcharts-legend').html());
+                        //$('#legend-rep').addClass('highcharts-legend');
+                    });
+
                     var chart = Highcharts.chart('charts', {
                         chart: {
                             zoomType: 'x',
@@ -137,11 +162,11 @@ function getAvgRain($num, $year, $month, $day) {
                                     x: 150
                                 }
                             },
-                            panning: false,
+                            //panning: false,
                             pinchType: false
                         },
                         title: {
-                            text: 'Soil Moisture  / Rain & Crop Potential'
+                            text: ''
                         },
                         subtitle: {
                             text: ''
@@ -228,16 +253,23 @@ function getAvgRain($num, $year, $month, $day) {
                         ],
                         tooltip: {
                             shared: true,
-                            followTouchMove: false
+                            /*positioner: function (labelWidth, labelHeight, point) {
+                             
+                             alert(chart.plotLeft);
+                             alert(JSON.stringify(point));
+                             
+                             }*/
+                            //followTouchMove: false
                         },
                         legend: {
+                            enabled: false,
                             layout: 'vertical',
                             align: 'left',
-                            x: 120,
+                            floating: true,
+                            x: 150,
                             verticalAlign: 'top',
                             y: 100,
-                            floating: true,
-                            backgroundColor: '#FFFFFF'
+                            backgroundColor: '#FFFFFF',
                         },
                         scrollbar: {
                             enabled: true
@@ -317,11 +349,11 @@ function getAvgRain($num, $year, $month, $day) {
                                 var y = [3];
 
 
-                                ch.title.update({
-                                    style: {
-                                        "fontSize": label,
-                                    }
-                                });
+                                /*ch.title.update({
+                                 style: {
+                                 "fontSize": label,
+                                 }
+                                 });*/
                                 ch.legend.update({
                                     itemStyle: {
                                         "fontSize": label,
@@ -370,31 +402,41 @@ function getAvgRain($num, $year, $month, $day) {
 
                             }
 
-                    function setChartSize(ch) {
-                        var wHeight = $(window).height() - 20;
+                    var curT = 'md';
+                            function setChartSize(ch) {
 
-                        if ($(window).width() >= 992) {
-                            ch.setSize(mdWidth, wHeight);
-                            setLabelsSize(ch, 'md');
-                        } else if ($(window).width() >= 768) {
-                            ch.setSize(mdWidth * 2.13, wHeight);
-                            setLabelsSize(ch, 'sm');
+                                $('#resize').show();
+                                $('#charts').hide();
 
-                        } else {
-                            ch.setSize(mdWidth * 3.6, wHeight);
-                            setLabelsSize(ch, 'xs');
-                        }
-                    };
+                                var wHeight = $(window).height() - 20;
 
+                                if ($(window).width() >= 992) {
+                                    ch.setSize(mdWidth, wHeight);
+                                    setLabelsSize(ch, 'md');
+                                } else if ($(window).width() >= 768) {
+                                    curT = 'sm';
+                                    ch.setSize(mdWidth * 2.13, wHeight);
+                                    setLabelsSize(ch, 'sm');
+                                } else {
+                                    curT = 'xs';
+                                    ch.setSize(mdWidth * 3.6, wHeight);
+                                    setLabelsSize(ch, 'xs');
+                                }
 
-
+                                $('#resize').hide();
+                                $('#charts').show();
+                            }
+                    ;
 
                     setChartSize(chart);
 
-
                     $(window).resize(function () {
-                        setChartSize(chart);
-
+                        if ($(window).width() >= 992 && curT != 'md')
+                            setChartSize(chart);
+                        else if ($(window).width() >= 768 && curT != 'sm')
+                            setChartSize(chart);
+                        else if (curT != 'xs')
+                            setChartSize(chart);
                     });
         </script>
     </body>
