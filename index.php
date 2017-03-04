@@ -50,7 +50,7 @@ if (($handle = fopen("John Deer Data.csv", "r")) !== FALSE) {
 $aData[4][] = [];
 //echo count($aData[0]);
 
-ini_set('serialize_percision', '5');
+ini_set('serialize_precision', '5');
 
 $mdWidth = count($aData[0]) * 67;
 
