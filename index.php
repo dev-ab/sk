@@ -137,7 +137,7 @@ function getAvgRain($num, $year, $month, $day) {
         <script>
                     var data = JSON.parse('<?= json_encode($aData); ?>');
                     var mdWidth = JSON.parse('<?= json_encode($mdWidth); ?>');
-                    var mdHeight = 400;
+                    var mdHeight = 300;
         </script>
         <script
             src="https://code.jquery.com/jquery-3.1.1.min.js"
@@ -255,6 +255,7 @@ function getAvgRain($num, $year, $month, $day) {
                         ],
                         tooltip: {
                             shared: true,
+                            padding: 15,
                             /*positioner: function (labelWidth, labelHeight, point) {
                              
                              alert(chart.plotLeft);
@@ -262,6 +263,7 @@ function getAvgRain($num, $year, $month, $day) {
                              
                              }*/
                             //followTouchMove: false
+                            
                         },
                         legend: {
                             enabled: false,
@@ -338,12 +340,12 @@ function getAvgRain($num, $year, $month, $day) {
                                     var ticks = '15px';
                                 } else if (size == 'sm') {
                                     var title = '45px';
+                                    var label = '25px';
+                                    var ticks = '25px';
+                                } else {
+                                    var title = '50px';
                                     var label = '30px';
                                     var ticks = '30px';
-                                } else {
-                                    var title = '60px';
-                                    var label = '40px';
-                                    var ticks = '40px';
                                 }
 
                                 $('#legend-list').css('font-size', label);
@@ -359,7 +361,7 @@ function getAvgRain($num, $year, $month, $day) {
                                  });*/
                                 ch.legend.update({
                                     itemStyle: {
-                                        "fontSize": label,
+                                        "fontSize": label
                                     }
                                 });
 
