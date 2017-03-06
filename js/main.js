@@ -299,6 +299,7 @@ function setChartSize(ch) {
 
 setChartSize(chart);
 
+/*
 $(window).resize(function () {
     if ($(window).width() >= 992 && curT != 'md')
         setChartSize(chart);
@@ -306,4 +307,4 @@ $(window).resize(function () {
         setChartSize(chart);
     else if (curT != 'xs')
         setChartSize(chart);
-});
+});*/
